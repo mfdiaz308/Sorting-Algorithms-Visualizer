@@ -3,7 +3,7 @@ from tkinter import ttk
 import random
 from sorts_aux import *
 
-VEL: float = 0.075
+VEL: float = 0.5
 
 root: Tk = Tk()
 root.title('Sort algorithm visualizer')
@@ -54,15 +54,16 @@ def start_alg() -> None:
     global data
     # bubble(data, drawData, speedbar.get())
     if select_alg.get() == 'Bubble Sort':
-        bubble(data, drawData, VEL)
+        bubble(data, drawData, speedbar.get())
     elif select_alg.get() == 'Insertion Sort':
-        insertion(data, drawData, VEL)
+        insertion(data, drawData, speedbar.get())
     # elif select_alg.get() == 'Merge Sort':
     #     merge(data, drawData, VEL)
     elif select_alg.get() == 'Quick Sort':
         # quicksort(data, drawData, VEL)
-        # quick_sort(data, 0, len(data)-1, drawData, VEL)
-        quick_sort(data, drawData, VEL)
+        quick_sort(data, 0, len(data)-1, drawData, speedbar.get())
+        drawData(data, ['Green' for x in range(len(data))])
+        # quick_sort(data, data, drawData, VEL)
 
 # Frame for the main UI
 Mainframe: Frame = Frame(root, width=1200, height=600, bg='Light grey')
@@ -99,17 +100,17 @@ start_button: Button = Button(
 )
 start_button.grid(row=1, column=3, padx=5, pady=5)
 
-# speedbar: Scale = Scale(
-#     Mainframe,
-#     from_=0.10,
-#     to=2.0,
-#     length=100,
-#     digits=2,
-#     resolution=0.2,
-#     orient=HORIZONTAL,
-#     label='Select speed'
-# )
-# speedbar.grid(row=0, column=2, padx=5, pady=5)
+speedbar: Scale = Scale(
+    Mainframe,
+    from_=0.01,
+    to=5.0,
+    length=100,
+    digits=3,
+    resolution=0.2,
+    orient=HORIZONTAL,
+    label='Select speed'
+)
+speedbar.grid(row=0, column=2, padx=5, pady=5)
 
 size_entry: Scale = Scale(
     Mainframe,
